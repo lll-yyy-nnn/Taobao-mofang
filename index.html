@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仿淘宝</title>
+    <link rel="stylesheet" href="css/title.css">
+    <link rel="stylesheet" href="css/body.css">
+    <link rel="stylesheet" href="css/under.css">
+    <link rel="stylesheet" href="css/wangshangde.css">
+    <style type="text/css">
+        .tb-recommend {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+
+        .tb-recommend * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .tb-recommend-content-item {
+            position: relative;
+            float: left;
+            width: 372px;
+            height: 174px;
+            margin: 0 0 18px 18px;
+            overflow: hidden;
+            color: #333;
+            background-color: #f7f9fa;
+            border: 1px solid #f7f9fa;
+            -webkit-border-radius: 12px;
+            -moz-border-radius: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            -webkit-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+
+        .tb-recommend-content-item.hide {
+            display: none;
+        }
+
+        .tb-recommend-content-item:hover {
+            background-color: #fff;
+            border-color: #ff915e;
+            -webkit-box-shadow: 0 8px 12px 0 rgba(255, 80, 0, 0.06);
+            -moz-box-shadow: 0 8px 12px 0 rgba(255, 80, 0, 0.06);
+            box-shadow: 0 8px 12px 0 rgba(255, 80, 0, 0.06);
+        }
+
+        .tb-recommend-content-item .item-link {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            padding: 11px;
+        }
+
+        .tb-recommend-content-item .img-wrapper {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            background-color: rgba(27, 23, 67, 0.03);
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+        }
+
+        .tb-recommend-content-item .img-wrapper img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+        }
+
+        .tb-recommend-content-item .info-wrapper {
+            height: 116px;
+            margin-left: 162px;
+            overflow: hidden;
+        }
+
+        .tb-recommend-content-item .info-wrapper .title {
+            display: inline-block;
+            max-height: 46px;
+            margin: 6px 0 2px 0;
+            overflow: hidden;
+            color: #333;
+            font-size: 16px;
+            line-height: 23px;
+        }
+
+        .tb-recommend-content-item .info-wrapper .title img {
+            height: 16px;
+            margin-top: 3px;
+            margin-right: 6px;
+            vertical-align: top;
+        }
+
+        .tb-recommend-content-item .info-wrapper .title:hover {
+            color: #ff5000;
+        }
+
+        .tb-recommend-content-item .info-wrapper .tag-list {
+            height: 20px;
+            overflow: hidden;
+        }
+
+        .tb-recommend-content-item .info-wrapper .tag-list .tag-item {
+            display: inline-block;
+            height: 20px;
+            margin-right: 6px;
+            padding: 0 4px;
+            color: #ff5000;
+            font-size: 12px;
+            line-height: 18px;
+            vertical-align: top;
+            border: 1px solid #ff5000;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+        }
+
+        .tb-recommend-content-item .info-wrapper .tag-list .tag-item.graphic-tag {
+            padding: 0;
+            border: none;
+        }
+
+        .tb-recommend-content-item .info-wrapper .tag-list .tag-item.graphic-tag span {
+            display: inline-block;
+            padding: 0 5px;
+            line-height: 20px;
+        }
+
+        .tb-recommend-content-item .info-wrapper .tag-list .tag-item.graphic-tag .left {
+            -webkit-border-radius: 3px 0 0 3px;
+            -moz-border-radius: 3px 0 0 3px;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .tb-recommend-content-item .info-wrapper .tag-list .tag-item.graphic-tag .right {
+            -webkit-border-radius: 0 3px 3px 0;
+            -moz-border-radius: 0 3px 3px 0;
+            border-radius: 0 3px 3px 0;
+        }
+
+        .tb-recommend-content-item .info-wrapper .tag-list img {
+            height: 20px;
+            vertical-align: top;
+        }
+
+        .tb-recommend-content-item .price-wrapper {
+            margin-left: 162px;
+            color: #ff5000;
+        }
+
+        .tb-recommend-content-item .price-wrapper .price-value {
+            display: inline-block;
+            font-size: 22px;
+            line-height: 22px;
+        }
+
+        .tb-recommend-content-item .price-wrapper .price-value em {
+            margin-right: 4px;
+            font-size: 14px;
+            font-family: "Microsoft Yahei";
+            vertical-align: middle;
+        }
+
+        .tb-recommend-content-item .price-wrapper .price-desc {
+            margin-left: 2px;
+            font-size: 12px;
+            vertical-align: text-bottom;
+        }
+
+        .tb-recommend .skeleton-i {
+            float: left;
+            height: 174px;
+            margin-bottom: 18px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .tb-footer {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-height: 125px;
+            margin-top: 20px;
+            padding-bottom: 9px;
+            background-color: #fff;
+            font-size: 12px;
+        }
+
+        .tb-footer p {
+            padding-bottom: 8px;
+            overflow: hidden;
+            *zoom: 1;
+        }
+
+        .tb-footer b {
+            margin: 0 3px;
+            font-weight: 400;
+            color: #ddd;
+        }
+
+        .tb-footer em,
+        .tb-footer span {
+            color: #9c9c9c;
+            font-size: 12px;
+        }
+
+        .tb-footer em {
+            margin-left: 30px;
+            font-style: normal;
+        }
+
+        .tb-footer span {
+            margin: 0 4px;
+        }
+
+        .tb-footer .tb-footer-hd,
+        .tb-footer .tb-footer-bd,
+        .tb-footer .tb-footer-ft {
+            width: 1190px;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tb-footer .tb-footer-hd a,
+        .tb-footer .tb-footer-bd a {
+            white-space: nowrap;
+            color: #6c6c6c;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .tb-footer .tb-footer-hd a:hover,
+        .tb-footer .tb-footer-bd a:hover {
+            color: #f40;
+            text-decoration: none;
+        }
+
+        .tb-footer .tb-footer-hd {
+            padding-top: 7px;
+            border-top: 1px solid #ddd;
+        }
+
+        .tb-footer .tb-footer-hd p {
+            margin-bottom: 8px;
+            line-height: 27px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tb-footer .tb-footer-ft a {
+            margin-right: 15px;
+        }
+
+        .tb-footer .tb-footer-mod {
+            height: 40px;
+            display: inline-block;
+            background-repeat: no-repeat;
+            vertical-align: middle;
+        }
+
+        .tb-footer-with-logo {
+            min-height: 170px;
+        }
+    </style>
+</head>
+
+<body>
+    <!--this is the title(the top of Taobao)-->
+    <div class="title_1">
+        <div class="title_nothing_left"></div>
+        <div class="title_place">中国大陆</div>
+        <div class="title_login">亲，请登录</div>
+        <div class="tltle_register">免费注册</div>
+        <div class="title_content">手机逛淘宝</div>
+        <div class="title_content">网页无障碍</div>
+        <div class="title_nothing_center"></div>
+        <div class="title_myTaoBao">我的淘宝</div>
+        <div class="title_shopping_cart">购物车</div>
+        <div class="title_collect">收藏夹</div>
+        <div class="title_content_2">商品分类</div>
+        <div class="title_content_2">免费开店</div>
+        <div class="title_seller_center">千牛卖家中心</div>
+        <div class="title_chat_with_us">联系客服</div>
+    </div>
+
+    <div class="body">
+        <div class="title2">
+            <div class="title2_content">
+                <div class="title2_content_top"></div>
+                <div class="title2_content_under">
+                    <div class="title2_img">
+                        <img src="img/logo.jpg" alt="">
+                    </div>
+                    <div class="title2_search_dody">
+                        <div class="title2_search_cotent">
+                            <div class="title2_search_content_list">宝贝</div>
+
+                            <input class="title2_search_cotent_input" type="text" placeholder="|黑色长筒袜">
+
+                            <div class="title2_search_content_button">搜索</div>
+                        </div>
+                        <div class="title2_search_under">
+                            <div class="title2_search_under_content">黑丝 </div>
+                            <div class="title2_search_under_content">白丝 </div>
+                            <div class="title2_search_under_content">白色长筒袜 </div>
+                            <div class="title2_search_under_content">cos服 </div>
+                            <div class="title2_search_under_content">超短裙 </div>
+                            <div class="title2_search_under_content">半身裙 </div>
+                            <div class="title2_search_under_content">JK </div>
+                            <div class="title2_search_under_content">DK </div>
+                            <div class="title2_search_under_content">格子裙 </div>
+                            <div class="title2_search_under_content">学生装 </div>
+                            <div class="title2_search_under_content">洋装</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="title2_2Dcore">
+                <p style="margin: 0;">下载淘宝</p>
+                <img src="img/2Dcore.png" class="title2_2Dcore_content">
+            </div>
+        </div>
+        <div class="body_inner">
+            <div class="body_inner_sort">
+                <div class="body_inner_sort_title">
+                    <p>分类</p>
+                </div>
+                <div class="body_inner_sort_content"> 女装/内衣/ 奢品</div>
+                <div class="body_inner_sort_content">女鞋/男鞋/ 箱包</div>
+                <div class="body_inner_sort_content"> 美妆/饰品/ 洗护</div>
+                <div class="body_inner_sort_content">男装/运动/ 百货</div>
+                <div class="body_inner_sort_content">手机/数码/ 企业礼品</div>
+                <div class="body_inner_sort_content">家装/电器/ 车品</div>
+                <div class="body_inner_sort_content">食品/生鲜/ 母婴</div>
+                <div class="body_inner_sort_content"> 医药/保健/ 进口</div>
+            </div>
+            <div class="body_inner_left">
+                <div class="body_inner_left_top">
+                    <div class="body_inner_left_top_red">天猫|</div>
+                    <div class="body_inner_left_top_red">聚划算|</div>
+                    <div class="body_inner_left_top_green">天猫超市|</div>
+                    <div class="body_inner_left_top_white">司法拍卖|</div>
+                    <div class="body_inner_left_top_white">飞猪旅行|</div>
+                    <div class="body_inner_left_top_white">天天特卖|</div>
+                    <div class="body_inner_left_top_white">极有家|</div>
+                    <div class="body_inner_left_top_white">淘宝直播</div>
+                </div>
+                <div class="body_inner_left_under">
+                    <div class="doby_inner_left_under_img">
+                        <img style="    width: 570px;
+                        height: 320px;
+                        background-color: #f6f9fa;
+                        border-radius: 10px;
+                        float: left;"
+                            src="https://img.alicdn.com/imgextra/i4/6000000005141/O1CN011JFZBU1nqcwuM2S4I_!!6000000005141-2-octopus.png"
+                            alt="">
+                    </div>
+                    <div class="doby_inner_left_under_user">
+                        <div class="body_inner_left_under_user_img">
+                            <img src="img/user.jpg" class="body_inner_left_under_user_img_user">
+                        </div>
+                        <br><br>
+                        <p style="width: 260px; text-align:center">Hi！你好</p>
+                        <div class="body_inner_left_under_user_button">
+                            <div class="body_inner_left_under_user_button_login">登陆</div>
+                            <div class="body_inner_left_under_user_button_register">注册</div>
+                            <div class="body_inner_left_under_user_button_open_a_shop">开店</div>
+                        </div>
+                        <div class="body_inner_left_under_user_function">
+                            <div class="body_inner_left_under_user_function_content">
+                                <p>宝贝收藏</p>
+                            </div>
+                            <div class="body_inner_left_under_user_function_content">
+                                <p>买过的店</p>
+                            </div>
+                            <div class="body_inner_left_under_user_function_content">
+                                <p>收藏的店</p>
+                            </div>
+                            <div class="body_inner_left_under_user_function_content">
+                                <p>我的足迹</p>
+                            </div>
+                        </div>
+                        <div class="body_inner_left_under_user_news">
+                            <div class="body_inner_left_under_user_news_left">
+                                <p>热点</p>
+                            </div>
+                            <p>中国掀起数字化浪潮.......</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="body_guess_you_love">
+                <div class="body_guess_you_love_title">
+                    <div class="body_guess_you_love_title_text">
+                        <h3>猜你喜欢</h3>
+                    </div>
+                    <div class="body_guess_you_love_title_box">
+                        <p>个性推荐</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tb-recommend-content-item" role="listitem" aria-posinset="2" aria-setsize="120"
+                data-before-current-y="635" data-appeared="false" data-has-appeared="true" data-has-disappeared="true">
+                <a target="_blank" class="item-link">
+                    <div class="img-wrapper">
+                        <img src="./淘宝网 - 淘！我喜欢_files/O1CN01SWMTuW1L5d3mtZj2a_!!2212827501248-0-alimamacc.jpg_300x300q90.jpg"
+                            aria-labelledby="rc-item-tl-2">
+                    </div>
+                    <div class="info-wrapper">
+                        <div class="title"><img
+                                src="./淘宝网 - 淘！我喜欢_files/O1CN01rHZjwm1kc1MDCvBIO_!!6000000004703-2-tps-38-20.png">深圳青逸植发微针植发际线种植头发头顶加密种植头发种植毛发加密
+                        </div>
+                        <div class="tag-list"></div>
+                    </div>
+                    <div class="price-wrapper">
+                        <span class="price-value"><em>¥</em>280</span>
+                    </div>
+                </a>
+            </div>
+            <div class="tb-recommend-content-item" role="listitem" aria-posinset="3" aria-setsize="120"
+                data-before-current-y="688.453125" data-appeared="false" data-has-appeared="true"
+                data-has-disappeared="true">
+                <a target="_blank" class="item-link">
+                    <div class="img-wrapper">
+                        <img src="./淘宝网 - 淘！我喜欢_files/O1CN01gS2RCv22TT9iRA6Q7_!!0-item_pic.jpg_300x300q90.jpg"
+                            aria-labelledby="rc-item-tl-3">
+                    </div>
+                    <div class="info-wrapper">
+                        <div class="title">7.0cm厚底洞洞鞋女夏季外穿沙滩2022年新款包头办公室半拖鞋女款N</div>
+                        <div class="tag-list"></div>
+                    </div>
+                    <div class="price-wrapper">
+                        <span class="price-value"><em>¥</em>21.99</span>
+                    </div>
+                </a>
+            </div>
+            <div class="tb-recommend-content-item" role="listitem" aria-posinset="4" aria-setsize="120"
+                data-before-current-y="688.453125" data-appeared="false" data-has-appeared="true"
+                data-has-disappeared="true">
+                <a target="_blank" class="item-link">
+                    <div class="img-wrapper">
+                        <img src="./淘宝网 - 淘！我喜欢_files/O1CN017e08z81cF6ih7fAuc_!!2211929603570-0-alimamacc.jpg_300x300q90.jpg"
+                            aria-labelledby="rc-item-tl-4">
+                    </div>
+                    <div class="info-wrapper">
+                        <div class="title"><img
+                                src="./淘宝网 - 淘！我喜欢_files/O1CN01rHZjwm1kc1MDCvBIO_!!6000000004703-2-tps-38-20.png">新款热水器,限时特惠,顺丰包邮!
+                        </div>
+                        <div class="tag-list"></div>
+                    </div>
+                    <div class="price-wrapper">
+                        <span class="price-value"><em>¥</em>308</span>
+                    </div>
+                </a>
+            </div>
+            <div class="tb-recommend-content-item" role="listitem" aria-posinset="5" aria-setsize="120"
+                data-before-current-y="688.453125" data-appeared="false" data-has-appeared="true"
+                data-has-disappeared="true">
+                <a target="_blank" class="item-link">
+                    <div class="img-wrapper">
+                        <img src="./淘宝网 - 淘！我喜欢_files/O1CN01ppS8X61ImGyr5LhlD_!!0-item_pic.jpg_300x300q90.jpg"
+                            aria-labelledby="rc-item-tl-5">
+                    </div>
+                    <div class="info-wrapper">
+                        <div class="title">ins网红全身镜女家用落地镜卧室少女穿衣镜服装店大镜子试衣镜</div>
+                        <div class="tag-list">
+                            <div class="tag-item" style="color: #FF5000; border-color: #FAB596; background: #FFFFFF">
+                                送运费险</div>
+                        </div>
+                    </div>
+                    <div class="price-wrapper">
+                        <span class="price-value"><em>¥</em>39</span>
+                    </div>
+            </div>
+            </a>
+            <div class="tb-recommend-content-item" role="listitem" aria-posinset="6" aria-setsize="120"
+                data-before-current-y="741.828125" data-appeared="false" data-has-appeared="true"
+                data-has-disappeared="true">
+                <a target="_blank" class="item-link">
+                    <div class="img-wrapper">
+                        <img src="./淘宝网 - 淘！我喜欢_files/O1CN01T4VyVe2MLUXV62w6j_!!2-item_pic.png_300x300q90.jpg"
+                            aria-labelledby="rc-item-tl-6">
+                    </div>
+                    <div class="info-wrapper">
+                        <div class="title">雨伞反向全自动晴雨两用女防晒防紫外线遮阳太阳伞男折叠定制logo</div>
+                        <div class="tag-list">
+                            <div class="tag-item" style="color: #FF5000; border-color: #FAB596; background: #FFFFFF">
+                                送运费险</div>
+                        </div>
+                    </div>
+                    <div class="price-wrapper">
+                        <span class="price-value"><em>¥</em>19.8</span>
+                    </div>
+            </div>
+            </a>
+            <div class="tb-recommend-content-item" role="listitem" aria-posinset="7" aria-setsize="120"
+                data-before-current-y="741.828125" data-appeared="false" data-has-appeared="true"
+                data-has-disappeared="true">
+                <a target="_blank" class="item-link">
+                    <div class="img-wrapper">
+                        <img src="./淘宝网 - 淘！我喜欢_files/O1CN01HNbpKs1SrRhEOjE6b_!!2909872300.jpg_300x300q90.jpg"
+                            aria-labelledby="rc-item-tl-7">
+                    </div>
+                    <div class="info-wrapper">
+                        <div class="title"><img
+                                src="./淘宝网 - 淘！我喜欢_files/O1CN01z6310p1Kgtg3LRNJp_!!6000000001194-2-tps-101-42.png">小邹菊春夏包包女2022新款百搭ins小众设计大容量手提单肩托特包
+                        </div>
+                        <div class="tag-list">
+                            <div class="tag-item" style="color: #FF5000; border-color: #FAB596; background: #FFFFFF">
+                                送运费险</div>
+                            <div class="tag-item" style="color: #FF5000; border-color: #FAB596; background: #FFFFFF">
+                                每300减30</div>
+                        </div>
+                    </div>
+                    <div class="price-wrapper">
+                        <span class="price-value"><em>¥</em>29.9</span>
+                    </div>
+                </a>
+            </div>
+            <div class="tb-recommend-content-item" role="listitem" aria-posinset="8" aria-setsize="120"
+                data-before-current-y="741.828125" data-appeared="false" data-has-appeared="true"
+                data-has-disappeared="true">
+                <a target="_blank" class="item-link">
+                    <div class="img-wrapper">
+                        <img src="./淘宝网 - 淘！我喜欢_files/O1CN01rkZbrO1tJ5dEVK6ku_!!3703735880-0-alimamacc.jpg_300x300q90.jpg"
+                            aria-labelledby="rc-item-tl-8">
+                    </div>
+                    <div class="info-wrapper">
+                        <div class="title"><img
+                                src="./淘宝网 - 淘！我喜欢_files/O1CN01rHZjwm1kc1MDCvBIO_!!6000000004703-2-tps-38-20.png">成人3M进口补牙88元浅龋
+                        </div>
+                        <div class="tag-list"></div>
+                    </div>
+                    <div class="price-wrapper">
+                        <span class="price-value"><em>¥</em>88</span>
+                    </div>
+                </a>
+            </div>
+            <div class="tb-recommend-content-item" role="listitem" aria-posinset="9" aria-setsize="120"
+                data-before-current-y="631.828125" data-appeared="false" data-has-appeared="true"
+                data-has-disappeared="true">
+                <a target="_blank" class="item-link">
+                    <div class="img-wrapper">
+                        <img src="./淘宝网 - 淘！我喜欢_files/O1CN01boGZpQ1nXOFpvDZF8_!!1592015099.jpg_300x300q90.jpg"
+                            aria-labelledby="rc-item-tl-9">
+                    </div>
+                    <div class="info-wrapper">
+                        <div class="title">少女ins风不规则酒杯小众设计玻璃杯子复古咖啡牛奶透明褶皱杯</div>
+                        <div class="tag-list"></div>
+                    </div>
+                    <div class="price-wrapper">
+                        <span class="price-value"><em>¥</em>12.9</span>
+                    </div>
+                </a>
+            </div>
+            <div class="tb-recommend-content-item" role="listitem" aria-posinset="10" aria-setsize="120"
+                data-before-current-y="631.828125" data-appeared="false" data-has-appeared="true"
+                data-has-disappeared="true">
+                <a target="_blank" class="item-link">
+                    <div class="img-wrapper">
+                        <img src="./淘宝网 - 淘！我喜欢_files/O1CN01cMF1Iz24zBp3T2Ef5_!!0-saturn_solar.jpg_300x300q90.jpg"
+                            aria-labelledby="rc-item-tl-10">
+                    </div>
+                    <div class="info-wrapper">
+                        <div class="title"><img
+                                src="./淘宝网 - 淘！我喜欢_files/O1CN01rHZjwm1kc1MDCvBIO_!!6000000004703-2-tps-38-20.png">七夕节水密码海泉精华补水保湿护肤品水乳套装正品旗舰店官网
+                        </div>
+                        <div class="tag-list">
+                            <div class="tag-item" style="color: #FF5000; border-color: #FAB596; background: #FFFFFF">
+                                送运费险</div>
+                        </div>
+                    </div>
+                    <div class="price-wrapper">
+                        <span class="price-value"><em>¥</em>129</span>
+                    </div>
+            </div>
+
+        </div>
+        <div class="body_under">
+            <div class="tb-footer tb-footer-with-logo" data-spm="1997523009">
+                <div class="tb-footer-hd">
+                    <p><span><a
+                                rel="noopener noreferrer">阿里巴巴集团</a></span><b>|</b><span><a
+rel="noopener noreferrer">淘宝网</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">天猫</a></span><b>|</b><span><a
+                                
+                                rel="noopener noreferrer">聚划算</a></span><b>|</b><span><a
+
+                                rel="noopener noreferrer">全球速卖通</a></span><b>|</b><span><a
+
+                                rel="noopener noreferrer">阿里巴巴国际交易市场</a></span><b>|</b><span><a
+rel="noopener noreferrer">1688</a></span><b>|</b><span><a
+
+                                rel="noopener noreferrer">阿里妈妈</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">飞猪</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">阿里云计算</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">AliOS</a></span><b>|</b><span><a
+
+                                rel="noopener noreferrer">阿里通信</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">一淘</a></span><b>|</b><span><a
+
+                                rel="noopener noreferrer">万网</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">高德</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">UC</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">友盟</a></span><b>|</b><span><a
+
+                                rel="noopener noreferrer">阿里安全</a></span><b>|</b><br><span><a
+rel="noopener noreferrer">大麦网</a></span><b>|</b><span><a
+
+                                rel="noopener noreferrer">钉钉</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">支付宝</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">优酷</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">土豆</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">阿里健康</a></span><b>|</b><span><a
+
+                                rel="noopener noreferrer">阿里影业</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">网商银行</a></span><b>|</b></p>
+                </div>
+                <div class="tb-footer-bd">
+                    <p><span><a rel="noopener noreferrer">关于淘宝</a></span><span><a
+                                rel="noopener noreferrer">营销中心</a></span><span><a
+                                rel="noopener noreferrer">联系客服</a></span><span><a
+                                rel="noopener noreferrer">开放平台</a></span><span><a
+                                rel="noopener noreferrer">诚征英才</a></span><span><a
+                                rel="noopener noreferrer">联系我们</a></span><span><a
+                                rel="noopener noreferrer">隐私权政策</a></span><span><a
+                                rel="noopener noreferrer">法律声明</a></span><span><a
+                                rel="noopener noreferrer">知识产权</a></span><span><a
+                                rel="noopener noreferrer">不当竞争举报</a></span><span><a
+                                rel="noopener noreferrer">规则意见征集</a></span><b>|</b><em>© 2003-现在 Taobao.com 版权所有</em>
+                    </p>
+                    <p><span>增值电信业务经营许可证：浙B2-20080224</span><b>|</b><span>增值电信业务经营许可证（跨地区）：
+                            B2-20150210</span><b>|</b><span>浙网文【2022】0403-017号</span><b>|</b><span>浙江省网络食品销售第三方平台提供者备案：浙网食A33010001</span><b>|</b><br>
+                    </p>
+                    <p><span
+                            data-spm-anchor-id="a21bo.jianhua.1997523009.i0.37ed11d9urrAij">互联网药品信息服务资格证书（浙）-经营性-2018-0010</span><b>|</b><span>短消息类服务接入代码使用证书：号【2016】00154-A01</span><b>|</b><span>信息网络传播视听许可证：1109364号</span><b>|</b><span
+                            data-spm-anchor-id="a21bo.jianhua.1997523009.i1.37ed11d9urrAij">出版物网络交易平台服务经营备案号：新出发浙备字第002号</span><b>|</b>
+                    </p>
+                    <p data-spm-anchor-id="a21bo.jianhua.1997523009.i2.37ed11d9urrAij"><span><a
+                                rel="noopener noreferrer"><span class="tb-footer-mod"
+                                    style="background-position: -861px 0px; width: 20px; height: 20px; background-image: url(&quot;https://img.alicdn.com/tfs/TB1EPnIQXXXXXaSXpXXXXXXXXXX-1133-35.jpg&quot;);"></span>浙公网安备
+                                33010002000078号</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">浙B2-20080224-1</a></span><b>|</b><span>广播电视节目制作经营许可证（浙）字第01012号</span><b>|</b><span>市场名称登记证：工商网市字3301004120号</span><b>|</b><span>医疗器械网络交易服务第三方平台备案：（浙）网械平台备字[2018]第00004号</span><b>|</b><span><a
+                                rel="noopener noreferrer">互联网违法和不良信息举报电话：0571-81683755
+                                jubao.tb@service.taobao.com</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">中国扫黄打非网</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">全国文化和旅游市场网上举报投诉处理系统</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">全国12315平台</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">浙江省互联网违法和不良信息举报中心</a></span><b>|</b><span><a
+                                rel="noopener noreferrer">全网举报</a></span><b>|</b><br>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
